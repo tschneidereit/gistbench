@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Gistbench</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="gistbench.css" media="screen">
+
+<!-- Bootstrap -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="bootstrap/assets/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+<body>
+<form id='input'>
+  <fieldset>
+    <label for='setup'>Setup code (run once)</label>
+    <textarea id='setup-code'></textarea>
+    <label for='loop-count'>Number of runs</label>
+    <input id='loop-count' type="number" value='100000000'>
+  </fieldset>
+  <input id='test-case-0-name' type='hidden' value='Baseline (empty test)'>
+  <input id='test-case-0-code' type='hidden'>
+  <fieldset>
+    <legend>Test 1</legend>
+    <input type="text" id='test-case-1-name'>
+    <textarea id='test-case-1-code'></textarea>
+  </fieldset>
+  <button id='add-test' class="btn">Add Test</button>
+  <hr>
+  <button id='run-tests' type="submit" class="btn btn-primary btn-large">Run</button>
+</form>
+
+<h2>The Benchmark!</h2>
+<textarea id='test-output'></textarea>
+<!-- <iframe id='bench' sandbox='allow-scripts'></iframe> -->
+
+<script src='gistbench.js'></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
