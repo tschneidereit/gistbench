@@ -78,8 +78,11 @@ var harnessTemplate = '// gistbench v0.1 (http://gistbench.com)\n// Loops: %loop
                       '// Setup\n%setup%\n\nfunction gistBenchMain() {\n\n// Warmup (ignore)\n%warmup%\n\n%tests%\n\n' + 
                       'return {results : [%results%], times : [%times%]};\n} // gistBenchMain\n\n' + 
                       'var out = typeof console !== "undefined" ? console.log : print;\n\n' + 
-                      'var results = gistBenchMain();\nresults.times.forEach(function(result, i) {' + 
-                      '\n    out("Test " + i + ": " + result + "\\t\\t" + testNames[i]);\n});';
+                      'var results = gistBenchMain();\nvar baseline = results.times.shift();\ntestNames.shift();\n' +
+                      'out("Baseline-performance for empty test: " + baseline + "ms");\n' +
+                      'out("Results, with baseline subtracted:");' +
+                      'results.times.forEach(function(result, i) {' + 
+                      '\n    out("Test " + i + ": " + (result - baseline) + "ms\\t\\t" + testNames[i]);\n});';
 
 var testTemplate = '\n\n// Test%index% (%name%)\nfunction gistBench%index%() {\n%code%\n}\nvar gistBench%index%Result = 0;\n' +
                    'var gistBench%index%Begin = Date.now();\n' +
