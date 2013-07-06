@@ -1,45 +1,121 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gistbench</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="gistbench.css" media="screen">
+<!--[if IE 8]>               <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 
-<!-- Bootstrap -->
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-  <script src="bootstrap/assets/js/html5shiv.js"></script>
-<![endif]-->
+<head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Gistbench</title>
+
+  
+  <link rel="stylesheet" href="css/foundation.css" />
+  <link rel="stylesheet" href="css/vendor/codemirror/codemirror.css">
+  <link rel="stylesheet" href="css/vendor/codemirror/solarized.css">
+
+  <script src="js/vendor/custom.modernizr.js"></script>
+
 </head>
 <body>
-<form id='input'>
-  <fieldset>
-    <label for='setup'>Setup code (run once)</label>
-    <textarea id='setup-code'></textarea>
-    <label for='loop-count'>Number of runs</label>
-    <input id='loop-count' type="number" value='100000000'>
-  </fieldset>
-  <input id='test-case-0-name' type='hidden' value='Baseline (empty test)'>
-  <input id='test-case-0-code' type='hidden'>
-  <fieldset>
-    <legend>Test 1</legend>
-    <input type="text" id='test-case-1-name'>
-    <textarea id='test-case-1-code'></textarea>
-  </fieldset>
-  <button id='add-test' class="btn">Add Test</button>
-  <hr>
-  <button id='run-tests' type="submit" class="btn btn-primary btn-large">Run</button>
-</form>
 
-<h2>The Benchmark!</h2>
-<textarea id='test-output'></textarea>
-<!-- <iframe id='bench' sandbox='allow-scripts'></iframe> -->
+    <div class="row">
+        <div class="large-12 columns">
+            <h2>Gistbench</h2>
+            <p>Where Benchmarks go to become useful</p>
+            <hr />
+        </div>
+    </div>
 
-<script src='gistbench.js'></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
+    <div class="row">
+        <div class="large-8 columns">
+            <h3>Test Cases</h3>
+
+            <form id='input'>
+              <fieldset>
+                <legend>Setup</legend>
+                <label for='setup'>Setup code (run once)</label>
+                <textarea id='setup-code'></textarea>
+                <label for='loop-count'>Number of runs per test</label>
+                <input id='loop-count' type="number" value='100000000'>
+              </fieldset>
+              <input id='test-case-0-name' type='hidden' value='Baseline (empty test)'>
+              <input id='test-case-0-code' type='hidden'>
+              <fieldset id='test-case-1'>
+                <legend>Test Case 1</legend>
+                <label for='test-case-1-name'>Name</label>
+                <input type="text" id='test-case-1-name'>
+                <label for='test-case-1-code'>Code</label>
+                <textarea id='test-case-1-code'></textarea>
+              </fieldset>
+              <button id='add-test' class="small button">Add Test</button>
+              <hr>
+              <button id='run-tests' type="submit" class="btn btn-primary btn-large">Run</button>
+            </form>
+            <div class="row">
+                <div class="large-12 columns">
+                    <fieldset>
+                        <legend>Output</legend>
+                        <textarea id='test-output'></textarea>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <div class="large-4 columns">
+            <h4>Getting Started</h4>
+            <p>This will contain a short introductory test explaining what Gistbench is all about. For now, it is not interesting at all.</p>
+
+            <h4>Benchmarking Hygiene</h4>
+            <p>Benchmarking is hard. It is all too easy to create tests that accidentally test something entirely different from what they seem to. Thus, this here section will contain links to some tips for proper benchmarking.</p>
+        </div>
+    </div>
+
+  <script>
+  document.write('<script src=' +
+    ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
+    '.js><\/script>');
+  </script>
+  
+  <script src="js/foundation.min.js"></script>
+  <!--
+  
+  <script src="js/foundation/foundation.js"></script>
+  
+  <script src="js/foundation/foundation.interchange.js"></script>
+  
+  <script src="js/foundation/foundation.dropdown.js"></script>
+  
+  <script src="js/foundation/foundation.placeholder.js"></script>
+  
+  <script src="js/foundation/foundation.forms.js"></script>
+  
+  <script src="js/foundation/foundation.alerts.js"></script>
+  
+  <script src="js/foundation/foundation.magellan.js"></script>
+  
+  <script src="js/foundation/foundation.reveal.js"></script>
+  
+  <script src="js/foundation/foundation.tooltips.js"></script>
+  
+  <script src="js/foundation/foundation.clearing.js"></script>
+  
+  <script src="js/foundation/foundation.cookie.js"></script>
+  
+  <script src="js/foundation/foundation.joyride.js"></script>
+  
+  <script src="js/foundation/foundation.orbit.js"></script>
+  
+  <script src="js/foundation/foundation.section.js"></script>
+  
+  <script src="js/foundation/foundation.topbar.js"></script>
+  
+  -->
+  
+  <script>
+    $(document).foundation();
+  </script>
+
+  <script src="js/vendor/codemirror/codemirror.js"></script>
+  <script src="js/vendor/codemirror/javascript.js"></script>
+  <script src='js/gistbench.js'></script>
 </body>
 </html>

@@ -1,20 +1,25 @@
 var testCount = 1;
 
+CodeMirror.defaults.theme = 'solarized dark';
+
+var setupCode = CodeMirror.fromTextArea(document.getElementById('setup-code'));
+var testCases = [new CodeMirror(function(){}), CodeMirror.fromTextArea(document.getElementById('test-case-1-code'))];
+var output = CodeMirror.fromTextArea(document.getElementById('test-output'));
+
 document.getElementById('add-test').addEventListener('click', function(e) {
   e.preventDefault();
   testCount++;
-  var testNode = document.createElement("fieldset");
-  var legend = document.createElement("legend");
-  legend.textContent = 'Test ' + testCount;
-  legend.textContent = 'Test ' + testCount;
-  testNode.appendChild(legend);
-  var name = document.createElement("input");
-  name.type = 'text';
+  var testNode = document.getElementById("test-case-1").cloneNode(true);
+  testNode.removeChild(testNode.querySelector('.CodeMirror'));
+  testNode.querySelector('legend').textContent = 'Test ' + testCount;
+  var name = testNode.querySelector('input#test-case-1-name');
   name.id = 'test-case-' + testCount + '-name';
-  testNode.appendChild(name);
-  var input = document.createElement("textarea");
+  var input = testNode.querySelector('textarea');
   input.id = 'test-case-' + testCount + '-code';
-  testNode.appendChild(input);
+  testCases[testCount] = CodeMirror.fromTextArea(input);
+  var labels = testNode.querySelectorAll('label');
+  labels[0].htmlFor = 'test-case-' + testCount + '-name';
+  labels[1].htmlFor = 'test-case-' + testCount + '-code';
   this.parentNode.insertBefore(testNode, this);
 });
 
@@ -37,7 +42,7 @@ document.getElementById('run-tests').addEventListener('click', function(e) {
 
   for (var i = 0; i <= testCount; i++) {
     var testName = document.getElementById('test-case-' + i + '-name').value;
-    var testCode = document.getElementById('test-case-' + i + '-code').value;
+    var testCode = testCases[i].getValue();
     var test = createTest(testName, testCode, i, loopCount);
     if (!test)
       return;
@@ -57,7 +62,8 @@ document.getElementById('run-tests').addEventListener('click', function(e) {
              .split('%tests%').join(tests.join('\n\n'));
 
   console.log(code);
-  document.getElementById('test-output').value = code;
+  output.setValue(code);
+  // document.getElementById('test-output').value = code;
 });
 
 function createTest(name, code, index, loops) {
@@ -76,7 +82,7 @@ function createTest(name, code, index, loops) {
 
 var harnessTemplate = '// gistbench v0.1 (http://gistbench.com)\n// Loops: %loops%\n\nvar testNames = [\n  %names%\n];\n\n' + 
                       '// Setup\n%setup%\n\nfunction gistBenchMain() {\n\n// Warmup (ignore)\n%warmup%\n\n%tests%\n\n' + 
-                      'return {results : [%results%], times : [%times%]};\n} // gistBenchMain\n\n' + 
+                      'return {\n  results : [%results%],\n  times : [%times%]\n};\n} // gistBenchMain\n\n' + 
                       'var out = typeof console !== "undefined" ? console.log : print;\n\n' + 
                       'var results = gistBenchMain();\nvar baseline = results.times.shift();\ntestNames.shift();\n' +
                       'out("Baseline-performance for empty test: " + baseline + "ms");\n' +
